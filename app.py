@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from routes.user import user
 from fastapi.middleware.cors import CORSMiddleware
-
+import sys
+sys.tracebacklimit = 1
 api_escu = FastAPI()
 
 api_escu.include_router(user)
