@@ -40,7 +40,7 @@ def crear_usuario(user: InputUser):
 @user.post("/users/loginUser")
 def login_post(user: InputLogin):
     try:
-        usu = User(0, user.username, user.password, "", "")
+        usu = User(user.username, user.password)
         res = session.query(User).filter(User.username == usu.username).first()
         if res.password == usu.password:
             print("usuario correcto")
