@@ -21,25 +21,7 @@ class User(Base):
         self.firstName = firstName
         self.lastName = lastName
 
-Base.metadata.create_all (bind=engine)
-
-Session = sessionmaker(bind=engine)  # creo una clase session
-
-
-
-session = Session()
-
-class InputUser(BaseModel):
-    id: int
-    username: str
-    password: str
-    firstName: str
-    lastName: str
-
-class InputLogin(BaseModel):
-    username: str
-    password: str
-
+#AGRGAMOSEN CLASE 9/5/25
 class UserDetail(Base):
 
    __tablename__ = "userdetails"
@@ -59,6 +41,27 @@ class UserDetail(Base):
        self.lastName = lastName
        self.type = type
        self.email = email
+
+
+Base.metadata.create_all (bind=engine)
+
+Session = sessionmaker(bind=engine)  # creo una clase session
+
+
+
+session = Session()
+
+class InputUser(BaseModel):
+    id: int
+    username: str
+    password: str
+    firstName: str
+    lastName: str
+
+class InputLogin(BaseModel):
+    username: str
+    password: str
+
 
 
 
