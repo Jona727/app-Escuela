@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from model.user import session, InputUser, User , InputLogin
+from model.user import session, InputUser, User , InputLogin, UserDetail, InputUserDetail 
 
 
 user = APIRouter()
@@ -24,11 +24,9 @@ def get_users_id(n: str):
 def crear_usuario(user: InputUser):
    try: 
         usuNuevo = User(
-            user.id,
             user.username,
             user.password,
-            user.firstName,
-            user.lastName,
+            
         )
         session.add(usuNuevo)
         session.commit()
@@ -51,3 +49,23 @@ def login_post(user: InputLogin):
             return None
     except Exception as e:
         print(e)
+
+
+#agregamos en clase presencial 9/5
+@userDetail.post("/userdetail/add")
+def add_usuarDetail(userDet: InputUserDetail):
+   usuNuevo = UserDetail(
+   userDet.dni, userDet.firstName, userDet.lastName, userDet.type,           userDet.email
+   )
+   session.add(usuNuevo)
+   session.commit()
+   return "usuario detail agregado"
+
+
+@userDetail.get("/userdetail/all")
+def get_userDetails():
+   try:
+       return session.query(UserDetail).all()
+   except Exception as e:
+       print(e)
+
