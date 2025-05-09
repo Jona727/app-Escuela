@@ -11,21 +11,20 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column("username", String (50), unique=True)
     password = Column("password", String (50))
-    firstName = Column("firstName", String)
-    lastName = Column("lastName", String)
+    #firstName = Column("firstName", String)        CARGADO EN USER DETAIL
+    #lastName = Column("lastName", String)
 
-    def __init__(self,id,username,password,firstName,lastName):
-        self.id = id
+    def __init__(self,username,password):
         self.username = username
         self.password = password
-        self.firstName = firstName
-        self.lastName = lastName
+        #self.firstName = firstName
+        #self.lastName = lastName
 
 #AGRGAMOSEN CLASE 9/5/25
+#userDetail.py
 class UserDetail(Base):
-
+    
    __tablename__ = "userdetails"
-
 
    id = Column("id", Integer, primary_key=True)
    dni = Column("dni", Integer)
@@ -47,9 +46,8 @@ Base.metadata.create_all (bind=engine)
 
 Session = sessionmaker(bind=engine)  # creo una clase session
 
-
-
 session = Session()
+
 
 class InputUser(BaseModel):
     id: int
@@ -61,6 +59,13 @@ class InputUser(BaseModel):
 class InputLogin(BaseModel):
     username: str
     password: str
+
+class InputUserDetail(BaseModel):
+   dni: int
+   firstName: str
+   lastName: str
+   type: str
+   email: str
 
 
 
