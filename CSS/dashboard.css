@@ -1,0 +1,11 @@
+.welcomeContainer {
+    color: red;
+    background-color: rgba(95, 158, 160, 0.404);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.nameUser 
+{
+    font-weight: 600;
+}

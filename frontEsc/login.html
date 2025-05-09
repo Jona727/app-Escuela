@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escuela - Login</title>
+    <!-- Importar Google Fonts (Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto :wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-image: url('C:/Users/JONATAN/OneDrive/Imágenes/logoutn.jpg'); /* Cambia esto por la ruta de tu imagen */
+            background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+        }
+
+        /* Contenedor principal */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Título del formulario */
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            font-family: 'Roboto', sans-serif; /* Fuente moderna */
+            font-weight: 700; /* Negrita */
+            text-transform: uppercase; /* Texto en mayúsculas */
+            letter-spacing: 2px; /* Espaciado entre letras */
+        }
+
+        /* Leyenda de bienvenida */
+        .welcome-message {
+            font-size: 13px;
+            color: #9e9c9c;
+            margin-bottom: 10px;
+        }
+
+        /* Campos de entrada */
+        .input-field {
+            width: 80%; /* tamaño text box*/
+            padding: 8px; /* Reducir el relleno */
+            margin: 10px auto; /* Centrar horizontalmente */
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px; /* Texto más pequeño */
+            text-align: center; /* Centrar el texto dentro del campo */
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Botón de inicio de sesión */
+        .login-button {
+            width: 80%; /* Más pequeño */
+            padding: 10px; /* Reducir el relleno */
+            margin-top: 20px;
+            background-color: #047c4e;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #ffffff;
+        }
+
+        /* Mensaje de resultado */
+        #loginResultContainer {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #e74c3c;
+        }
+
+        #loginResultContainer.success {
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <!-- Leyenda de bienvenida -->
+        <p class="welcome-message">
+            Bienvenido al sistema de gestión Escuela. Por favor, ingresa tu usuario y contraseña para continuar.
+        </p>
+        <form id="loginForm">
+            <input class="input-field" id="user" type="text" placeholder="Usuario" />
+            <input class="input-field" id="pass" type="password" placeholder="Contraseña" />
+            <button class="login-button" type="button" id="loginButton">Ingresar</button>
+        </form>
+        <div><span id="loginResultContainer"></span></div>
+    </div>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>
