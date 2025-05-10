@@ -19,10 +19,10 @@ def get_users_id(n: str):
     try:
         return session.query(User).filter(User.username == n).first()
     except Exception as ex:return ex
-   
+
 @user.post("/users/new")
 def crear_usuario(user: InputUser):
-   try: 
+    try: 
         usuNuevo = User(
             user.username,
             user.password,
@@ -31,11 +31,8 @@ def crear_usuario(user: InputUser):
         session.add(usuNuevo)
         session.commit()
         return "usuario agregado"
-   except Exception as ex:
-    
-       return ex
-   
-   
+    except Exception as ex:
+        return ex
 
 @user.post("/users/loginUser")
 def login_post(user: InputLogin):
@@ -54,18 +51,17 @@ def login_post(user: InputLogin):
 #agregamos en clase presencial 9/5
 @userDetail.post("/userdetail/add")
 def add_usuarDetail(userDet: InputUserDetail):
-   usuNuevo = UserDetail(
-   userDet.dni, userDet.firstName, userDet.lastName, userDet.type,           userDet.email
-   )
-   session.add(usuNuevo)
-   session.commit()
-   return "usuario detail agregado"
+    usuNuevo = UserDetail(
+        userDet.dni, userDet.firstName, userDet.lastName, userDet.type,userDet.email)
+    session.add(usuNuevo)
+    session.commit()
+    return "usuario detail agregado"
 
 
 @userDetail.get("/userdetail/all")
 def get_userDetails():
-   try:
-       return session.query(UserDetail).all()
-   except Exception as e:
-       print(e)
+    try:
+        return session.query(UserDetail).all()
+    except Exception as e:
+        print(e)
 
