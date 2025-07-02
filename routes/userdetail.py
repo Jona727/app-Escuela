@@ -1,23 +1,19 @@
 from fastapi import APIRouter
-from models.userDetailModel import session, UserDetail, InputUserDetail
+from models.modelo import session, UserDetail as UserDetailModel, InputUserDetails
 
+UserDetail = APIRouter()  
 
-userDetail = APIRouter()
+@UserDetail.post("/userdetail/add")
+def add_userdetail(userDet: InputUserDetails):
+    try:
 
-
-@userDetail.get("/userdetail/all")
-def get_userDetails():
-   try:
-       return session.query(UserDetail).all()
-   except Exception as e:
-       print(e)
-
-
-@userDetail.post("/userdetail/add")
-def add_usuarDetail(userDet: InputUserDetail):
-   usuNuevo = UserDetail(
-   userDet.dni, userDet.firstName, userDet.lastName, userDet.type,           userDet.email
-   )
-   session.add(usuNuevo)
-   session.commit()
-   return "usuario detail agregado"
+        newDetail = UserDetailModel(
+            userDet.dni, 
+            userDet.firstName, 
+            userDet.lastName,
+            userDet.type)
+        session.add(newDetail)
+        session.commit()
+        return "Detalle de usuario agregado"
+    except Exception as ex:
+        return str(ex)  

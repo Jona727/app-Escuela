@@ -1,0 +1,166 @@
+/* Estilo global */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* Fondo claro */
+}
+
+/* Contenedor principal */
+.login-container {
+  display: flex; /* Divide la pantalla en dos columnas */
+  align-items: stretch; /* Asegura que ambas columnas tengan la misma altura */
+  justify-content: space-between; /* Espacio entre las columnas */
+  min-height: 100vh; /* Altura mínima de la ventana */
+  padding: 0; /* Eliminamos el padding general */
+  box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+}
+
+/* Columna izquierda: Formulario */
+.login-card {
+  width: 45%; /* Ancho del formulario */
+  max-width: 500px; /* Máximo ancho para pantallas grandes */
+  padding: 40px;
+  background: white;
+  border: 2px solid #e5e7eb; /* Borde claro */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  z-index: 1; /* Asegura que el formulario esté encima si hay superposición */
+  margin-left: 20px; /* Espaciado a la izquierda */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* Apila las columnas verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+  }
+
+  .login-card {
+    width: 90%; /* El formulario ocupa más espacio en pantallas pequeñas */
+    max-width: 100%; /* Elimina el límite de ancho */
+    margin-bottom: 20px; /* Espaciado entre el formulario y otros elementos */
+    margin-left: 0; /* Elimina el margen izquierdo */
+  }
+
+  .right-column {
+    display: none; /* Oculta completamente la columna derecha */
+  }
+}
+
+/* Título */
+.login-title {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Subtítulo */
+.login-subtitle {
+  font-size: 18px;
+  color: #6b7280; /* Gris claro */
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Campos de entrada */
+.login-input {
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  border: 2px solid #e5e7eb; /* Borde claro */
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 16px;
+  background: transparent; /* Fondo transparente */
+  transition: border-color 0.3s ease; /* Transición suave */
+}
+
+.login-input:focus {
+  border-color: #a855f7; /* Violeta cuando está enfocado */
+  outline: none;
+}
+
+/* Etiquetas */
+.login-label {
+  font-size: px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Botones */
+.login-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Animaciones */
+}
+
+.login-button-primary {
+  background: #a855f7; /* Violeta */
+  color: white;
+}
+
+.login-button-primary:hover {
+  background: #9333ea; /* Violeta más oscuro */
+  transform: scale(1.05); /* Escala ligeramente al pasar el mouse */
+}
+
+/* Vínculo de registro */
+.login-link {
+  color: #a855f7; /* Color violeta */
+  text-decoration: none; /* Sin subrayado */
+  font-weight: bold;
+  transition: color 0.2s ease; /* Transición suave */
+}
+
+.login-link:hover {
+  color: #9333ea; /* Violeta más oscuro */
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Columna derecha: Diseño y animación */
+.right-column {
+  position: relative;
+  width: 55%; /* Ocupa el resto del ancho disponible */
+  height: 100vh; /* Altura completa de la pantalla */
+  background: white; /* Fondo blanco */
+  overflow: hidden; /* Evita que el contenido se desborde */
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+}
+
+/*esfera*/
+.right-column-circle {
+  width: 250px; /* Tamaño aumentado de la esfera */
+  height: 250px;
+  border-radius: 50%; /* Forma circular */
+  background: linear-gradient(to top right, #a855f7, #f472b6); /* Degradado violeta a rosa */
+  animation: bounce 2s infinite ease-in-out; /*efecto rebote */
+}
+
+/* Estado rebote */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0); 
+  }
+  50% {
+    transform: translateY(-30px); 
+  }
+}
+
+/*efecto "desenfoque" mitad de la columna derecha*/
+.right-column-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%; 
+  background: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(10px); 
+}
