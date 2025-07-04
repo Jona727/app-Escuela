@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { User, Camera, Mail, CreditCard, UserCheck } from "lucide-react";
+import { User, Mail, CreditCard, UserCheck } from "lucide-react";
 
 type UserProfile = {
   id: number;
@@ -12,7 +12,7 @@ type UserProfile = {
   type: string;
   profile_picture?: string;
 };
-//#region LOGICA
+
 export default function PerfilConCambioClave() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -21,7 +21,7 @@ export default function PerfilConCambioClave() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState<string>("");
-  const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -100,7 +100,6 @@ export default function PerfilConCambioClave() {
         return "bg-secondary text-white";
     }
   };
-//#endregion
 
   if (!user) {
     return (
@@ -120,13 +119,12 @@ export default function PerfilConCambioClave() {
         <div className="text-center mb-4">
           <p className="text-muted">Gestiona tu información personal y configuración de seguridad</p>
         </div>
-
         {/* Grid Layout */}
         <div className="row">
           {/* Columna Izquierda */}
           <div className="col-lg-4">
             <div className="card shadow-sm p-4 text-center">
-              <div className="position-relative">
+              <div className="position-relative d-flex justify-content-center">
                 <div className="mb-3">
                   {profilePicture ? (
                     <img
@@ -157,97 +155,15 @@ export default function PerfilConCambioClave() {
                 <UserCheck size={16} className="me-1" />
                 {user.type}
               </span>
-              {/* Enlace para abrir el formulario */}
-              {!showChangePasswordForm && (
-                <p
-                  className="text-primary mt-3 cursor-pointer text-decoration-underline"
-                  onClick={() => setShowChangePasswordForm(true)}
-                >
-                  ¿Quieres cambiar la contraseña? Haz clic aquí.
-                </p>
-              )}
-              {showChangePasswordForm && (
-                <div className="mt-3">
-                  <div className="card shadow-sm p-4 mx-auto" style={{ maxWidth: "500px" }}>
-                    <h5 className="fw-bold text-dark mb-4">Cambiar Contraseña</h5>
-                    <form onSubmit={handleChangePassword}>
-                      <div className="mb-3">
-                        <input
-                          type="password"
-                          value={currentPassword}
-                          onChange={(e) => setCurrentPassword(e.target.value)}
-                          required
-                          className="form-control"
-                          placeholder="Contraseña actual"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="password"
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                          required
-                          className="form-control"
-                          placeholder="Nueva contraseña (mínimo 6 caracteres)"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="password"
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          required
-                          className="form-control"
-                          placeholder="Confirmar nueva contraseña"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          onClick={() => setShowChangePasswordForm(false)}
-                        >
-                          Cancelar
-                        </button>
-                        <button
-                          type="submit"
-                          disabled={isLoading}
-                          className={`btn btn-primary ${
-                            isLoading ? "disabled opacity-50" : ""
-                          }`}
-                        >
-                          {isLoading ? (
-                            <>
-                              <span
-                                className="spinner-border spinner-border-sm me-2"
-                                role="status"
-                                aria-hidden="true"
-                              ></span>
-                              Cambiando...
-                            </>
-                          ) : (
-                            "Cambiar contraseña"
-                          )}
-                        </button>
-                      </div>
-                    </form>
-                    {message && (
-                      <div
-                        className={`alert ${
-                          message.includes("correctamente")
-                            ? "alert-success"
-                            : "alert-danger"
-                        } mt-3`}
-                      >
-                        {message}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
+              {/* Enlace para abrir el modal */}
+              <p
+                className="text-primary mt-3 cursor-pointer text-decoration-underline"
+                onClick={() => setIsModalOpen(true)}
+              >
+                ¿Quieres cambiar la contraseña? Haz clic aquí.
+              </p>
             </div>
           </div>
-
           {/* Columna Derecha */}
           <div className="col-lg-8">
             <div className="card shadow-sm p-4">
@@ -300,6 +216,104 @@ export default function PerfilConCambioClave() {
             </div>
           </div>
         </div>
+
+        {/* Modal para Cambiar Contraseña */}
+        {isModalOpen && (
+          <div
+            className="modal fade show d-block"
+            tabIndex={-1}
+            role="dialog"
+            style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title fw-bold">Cambiar Contraseña</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setIsModalOpen(false)}
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={handleChangePassword}>
+                    <div className="mb-3">
+                      <input
+                        type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        required
+                        className="form-control"
+                        placeholder="Contraseña actual"
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                        className="form-control"
+                        placeholder="Nueva contraseña (mínimo 6 caracteres)"
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        className="form-control"
+                        placeholder="Confirmar nueva contraseña"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => setIsModalOpen(false)}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className={`btn btn-primary ${
+                          isLoading ? "disabled opacity-50" : ""
+                        }`}
+                      >
+                        {isLoading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Cambiando...
+                          </>
+                        ) : (
+                          "Cambiar contraseña"
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                  {message && (
+                    <div
+                      className={`alert ${
+                        message.includes("correctamente")
+                          ? "alert-success"
+                          : "alert-danger"
+                      } mt-3`}
+                    >
+                      {message}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

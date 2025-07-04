@@ -94,15 +94,15 @@ const MisPagos = () => {
   const getEstadoIcon = () => {
     switch (estadoCuenta) {
       case "Al día":
-        return <CheckCircle size={32} className="text-white" />;
+        return <CheckCircle size={24} className="text-white" />;
       case "Pendiente":
-        return <AlertCircle size={32} className="text-dark" />;
+        return <AlertCircle size={24} className="text-dark" />;
       case "Error al cargar":
       case "No autenticado":
       case "Token inválido":
-        return <XCircle size={32} className="text-white" />;
+        return <XCircle size={24} className="text-white" />;
       default:
-        return <DollarSign size={32} className="text-muted" />;
+        return <DollarSign size={24} className="text-muted" />;
     }
   };
 
@@ -165,39 +165,32 @@ const MisPagos = () => {
   return (
     <div className="container-fluid bg-light min-vh-100 py-4">
       <div className="container">
-        {/* Header */}
-        <div className="text-center mb-4">
-          <CreditCard size={32} className="text-primary mb-2" />
-          <h2 className="fw-bold">Mis Pagos</h2>
-          <p className="text-muted">Historial de pagos y estado de cuenta</p>
-        </div>
-
         {/* Tarjetas Estado de Cuenta y Último Pago */}
         <div className="row g-4 mb-4">
           {/* Estado de Cuenta */}
-          <div className="col-md-8">
-            <div className={`card shadow-sm p-3 h-100 ${getEstadoCardStyle()}`}>
-              <div className="d-flex align-items-center justify-content-between">
-                <div>
-                  <h5 className="fw-bold mb-0">{estadoCuenta}</h5>
-                  <small className="text-muted">
-                    {estadoCuenta === "Al día"
-                      ? "Tus pagos están al corriente"
-                      : estadoCuenta === "Pendiente"
-                      ? "Tienes pagos pendientes"
-                      : "Verifica tu información"}
-                  </small>
-                </div>
-                {getEstadoIcon()}
+          <div className="col-md-9">
+            <div
+              className={`d-flex align-items-center justify-content-between px-3 py-2 rounded shadow-sm h-100 ${getEstadoCardStyle()}`}
+            >
+              <div>
+                <h6 className="fw-bold mb-0">{estadoCuenta}</h6>
+                <small className="text-muted">
+                  {estadoCuenta === "Al día"
+                    ? "Tus pagos están al corriente"
+                    : estadoCuenta === "Pendiente"
+                    ? "Tienes pagos pendientes"
+                    : "Verifica tu información"}
+                </small>
               </div>
+              {getEstadoIcon()}
             </div>
           </div>
 
           {/* Último Pago */}
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm p-4">
-              <Calendar size={24} className="text-primary mb-3" />
-              <h4 className="fw-bold">{stats.ultimoPago}</h4>
+          <div className="col-md-3">
+            <div className="d-flex flex-column justify-content-center h-100 px-3 py-2 rounded shadow-sm bg-white">
+              <Calendar size={20} className="text-primary mb-2" />
+              <h5 className="fw-bold">{stats.ultimoPago}</h5>
               <p className="text-muted mb-0">Último Pago</p>
             </div>
           </div>
@@ -210,20 +203,9 @@ const MisPagos = () => {
               <DollarSign size={20} className="text-primary me-2" />
               <h4 className="fw-bold mb-0">Historial de Pagos</h4>
             </div>
-            <button
-              onClick={fetchPagos}
-              disabled={isRefreshing}
-              className="btn btn-primary btn-sm"
-            >
-              <RefreshCw
-                size={16}
-                className={`me-2 ${isRefreshing ? "animate-spin" : ""}`}
-              />
-              Actualizar
-            </button>
           </div>
           {pagos.length > 0 ? (
-            <div className="table-responsive">
+              <div style={{ maxHeight: "400px", overflowY: "scroll", border: "1px solid #ddd", borderRadius: "8px" }}>
               <table className="table table-striped table-hover">
                 <thead className="table-light">
                   <tr>
